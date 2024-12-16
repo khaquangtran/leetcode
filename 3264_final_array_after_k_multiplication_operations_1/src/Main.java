@@ -2,6 +2,27 @@ import java.util.PriorityQueue;
 import java.util.Comparator;
 
 public class Main {
+    public static int[] getFinalState2(int[] nums, int k, int multiplier) {
+        int minVal = Integer.MAX_VALUE;
+        int index = Integer.MAX_VALUE;
+
+        while (k-- > 0) {
+            for (int i = 0; i < nums.length; i++) {
+                if (nums[i] < minVal) {
+                    minVal = nums[i];
+                    index = i;
+                } else if (nums[i] == minVal) {
+                    index = Math.min(i, index);
+                }
+            }
+
+            nums[index] *= multiplier;
+            minVal = nums[index];
+        }
+
+        return nums;
+    }
+
     public static int[] getFinalState(int[] nums, int k, int multiplier) {
         PriorityQueue<int[]> pq = new PriorityQueue<>(new Comparator<int[]>() {
             @Override
@@ -49,6 +70,10 @@ public class Main {
         int k = 5;
         int multiplier = 2;
 
-        System.out.println(getFinalState(nums, k, multiplier));
+        int[] ans = getFinalState2(nums, k, multiplier);
+
+        for (int i = 0; i < ans.length; i++) {
+            System.out.println(ans[i]);
+        }
     }
 }
