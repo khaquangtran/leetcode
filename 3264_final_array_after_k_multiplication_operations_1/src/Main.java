@@ -72,8 +72,8 @@ public class Main {
 
         int[] ans = getFinalState2(nums, k, multiplier);
 
-        for (int i = 0; i < ans.length; i++) {
-            System.out.println(ans[i]);
+        for (int i: ans) {
+            System.out.println(i);
         }
     }
 }
