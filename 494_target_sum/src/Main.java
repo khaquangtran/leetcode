@@ -45,6 +45,7 @@ public class Main {
     public int findTargetSumWays(int[] nums, int target) {
         sum = Arrays.stream(nums).sum();
         int[][] mem = new int[nums.length][sum * 2 + 1];
+
         for (int[] m: mem) {
             Arrays.fill(m, Integer.MIN_VALUE);
         }
