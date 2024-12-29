@@ -6,16 +6,16 @@ public class Main {
 
     private void backTracking(int[] candidates, int target, List<Integer> baseList, int sum, int j) {
         if (sum == target) {
-            ans.add(baseList);
+            ans.add(new ArrayList<>(baseList));
             return;
         } else if (sum > target) {
             return;
         }
 
         for (int i = j; i < candidates.length; i++) {
-            List<Integer> list = new ArrayList<>(baseList);
-            list.add(candidates[i]);
-            backTracking(candidates, target, list, sum + candidates[i], i);
+            baseList.add(candidates[i]);
+            backTracking(candidates, target, baseList, sum + candidates[i], i);
+            baseList.removeLast();
         }
     }
 
