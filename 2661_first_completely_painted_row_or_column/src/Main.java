@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    public int firstCompleteIndex(int[] arr, int[][] mat) {
+    private int bruteForce(int[] arr, int[][] mat) {
         int rows = mat.length, cols = mat[0].length;
         Map<Integer, int[]> map = new HashMap<>();
 
@@ -29,6 +29,47 @@ public class Main {
         }
 
         return -1;
+    }
+
+    private int reverseMapping(int[] arr, int[][] mat) {
+        // the idea is that, the last paint will always be painted
+        // and since we have to find the last paint first time, we need to find the first last paint.
+
+        int rows = mat.length, cols = mat[0].length;
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            map.put(arr[i], i);
+        }
+
+        int firstTimeLargestPaint = Integer.MAX_VALUE;
+
+        for (int i = 0; i < rows; i++) {
+            int largestIndexPaint = 0;
+
+            for (int j = 0; j < cols; j++) {
+                largestIndexPaint = Math.max(map.get(mat[i][j]), largestIndexPaint);
+            }
+
+            firstTimeLargestPaint = Math.min(firstTimeLargestPaint, largestIndexPaint);
+        }
+
+        for (int i = 0; i < cols; i++) {
+            int largestIndexPaint = 0;
+
+            for (int j = 0; j < rows; j++) {
+                largestIndexPaint = Math.max(map.get(mat[j][i]), largestIndexPaint);
+            }
+
+            firstTimeLargestPaint = Math.min(firstTimeLargestPaint, largestIndexPaint);
+        }
+
+        return firstTimeLargestPaint;
+    }
+
+    public int firstCompleteIndex(int[] arr, int[][] mat) {
+//        return bruteForce(arr, mat);
+        return reverseMapping(arr, mat);
     }
 
     public static void main(String[] args) {
